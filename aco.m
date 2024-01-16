@@ -16,29 +16,6 @@ function [shortest_tour,len] = aco(x,y,m,alpha,beta,rho)
 % beta - heuristic weight
 % rho - evaporation rate of pheromone 
 
-if nargin < 6
-%default values 
-
-   % 20 coordinates of cities 
-
-   x = randi(100,[1,1024]);%[82 91 12 92 63 9 28 55 96 97 15 98 96 49 80 14 42 92 80 96];
-    
-   y = randi(100,[1,1024]);%[66 3 85 94 68 76 75 39 66 17 71 3 27 4 9 83 70 32 95 3];
-
-   alpha = 1.0; % pheromone
-   beta = 1.0; % heuristic
-   rho = 0.05; % evaporation rate
-
-   m = 1; % number of ants
-   
-   rng default; % seed
-   
-   error('aco: not enough args')
-end
-
-
-%rng default;
-
 [D,n] = city_distance(x,y); % distances between cities 
 
 eta = 1./D; % make smaller distances important 
@@ -94,16 +71,11 @@ for gen=1:max_gen % termination condition
            
         end
         
-       
-        % return ant to starting city
-        %%ant(k).tour = [ant(k).tour  ant(k).tour(1)];
-        
-       
-        
+    
        
         tour = ant(k).tour;
         
-        tour = [tour tour(1)]; % wrap
+        tour = [tour tour(1)];  % return ant to starting city
 
    
         
@@ -130,7 +102,7 @@ for gen=1:max_gen % termination condition
         
         tour = ant(k).tour;
         
-        tour = [tour tour(1)]; % wrap around
+        tour = [tour tour(1)];  % return ant to starting city
         
         
         
@@ -151,7 +123,7 @@ for gen=1:max_gen % termination condition
     
     
     
-    % Evaporation
+    % evaporation
     
     
     
